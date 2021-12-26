@@ -71,5 +71,6 @@ The api has the endpoints:
 In addition to having a webhook for withdrawals and deposits.
 
 
+Inside all call files has tha explanation how to receive calls.
 
 
