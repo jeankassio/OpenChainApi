@@ -37,7 +37,7 @@ nano bitcoin.conf
 	blocknotify=curl "https://your_url/hook/blocknotify.php?tx=%s"
 
 
-If using an external disk for the blockchain, use the code "datadir=/youdirectory/bitcoin" above
+If using an external volume for the blockchain, use the code "datadir=/youdirectory/bitcoin" above
 
 
 
