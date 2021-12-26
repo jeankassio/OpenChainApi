@@ -43,16 +43,28 @@ The api has the endpoints:
 
 -Calculation of fee;
 
+	https://your_url/call/calculatefee
+	
 -Create Wallet;
 
+	https://your_url/call/createwallet
+	
 -Get balance;
 
+	https://your_url/call/getbalance
+	
 -Generate new address;
 
+	https://your_url/call/getnewaddress
+	
 -Get transaction info;
 
+	https://your_url/call/gettxidinfo
+	
 -Withdraw;
 
+	https://your_url/call/setnewtransaction
+	
 
 In addition to having a webhook for withdrawals and deposits.
 
