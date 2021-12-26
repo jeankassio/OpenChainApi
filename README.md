@@ -39,6 +39,16 @@ If using an external disk for the blockchain, use the code "datadir=/youdirector
 
 
 
+The api has the endpoints:
+-Calculation of fee;
+-Create Wallet;
+-Get balance;
+-Generate new address;
+-Get transaction info;
+-Withdraw;
+
+In addition to having a webhook for withdrawals and deposits.
+
 
 
 
