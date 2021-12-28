@@ -8,23 +8,15 @@ Tutorial Ubuntu:
 
 ** Add repository and install bitcoind ** 
 
-sudo apt-get install build-essential
-
-sudo apt-get install libtool autotools-dev autoconf
-
-sudo apt-get install libssl-dev
-
-sudo apt-get install libboost-all-dev
-
-sudo add-apt-repository ppa:luke-jr/bitcoincore
-
-sudo apt-get update
-
-sudo apt-get install bitcoind
-
-mkdir ~/.bitcoin/ && cd ~/.bitcoin/
-
-nano bitcoin.conf
+	sudo apt-get install build-essential
+	sudo apt-get install libtool autotools-dev autoconf
+	sudo apt-get install libssl-dev
+	sudo apt-get install libboost-all-dev
+	sudo add-apt-repository ppa:luke-jr/bitcoincore
+	sudo apt-get update
+	sudo apt-get install bitcoind
+	mkdir ~/.bitcoin/ && cd ~/.bitcoin/
+	nano bitcoin.conf
 
 
 ** Add config to bitcoin.conf file ** 
