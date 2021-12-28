@@ -23,7 +23,7 @@ Tutorial Ubuntu:
 
 
 	rpcuser=someusername
-	rpcpassword=someusername
+	rpcpassword=somepassword
 	testnet=0
 	rpcport=8332
 	rpcallowip=127.0.0.1
