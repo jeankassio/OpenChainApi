@@ -25,7 +25,13 @@ if(!isValidJSON($json_params)){ //check validate of json
 
 $PARAMS = json_decode($json_params, true); //Convert json to array
 
-if(strlen($PARAMS['name']) < 4 OR strlen($PARAMS['name']) > 30){ //Apply rules to lenght name of wallet
+if(!isset($PARAMS['name'],$PARAMS['pass'])){ //Check if call is valid
+	$response["code"] = 501;
+	$response["message"] = "Invalid call";
+	$response["date"] = date("Y-m-d H:i:s");		
+	echo json_encode($response, JSON_UNESCAPED_UNICODE);
+	exit();
+}elseif(strlen($PARAMS['name']) < 4 OR strlen($PARAMS['name']) > 30){ //Apply rules to lenght name of wallet
 	
 	$response["code"] = 301;
 	$response["message"] = "Wallet name needs to be between 4 and 30 characters";
