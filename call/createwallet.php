@@ -65,7 +65,7 @@ $btc = new Bitcoin(USER_BITCOIN, PASS_BITCOIN); //Create a connection to RPC bit
 		if($wallet['name'] == $PARAMS['name']){ //check if as same, for security
 			
 			$response["code"] = 200;
-			$response["message"] = "Success";
+			$response["message"] = "Success"; //Create a wallet
 			$response["date"] = date("Y-m-d H:i:s");		
 			echo json_encode($response, JSON_UNESCAPED_UNICODE);
 			exit();
