@@ -29,9 +29,9 @@ JSON TO RECEIVE:
 
 */
 
-$json_params = file_get_contents("php://input");
+$json_params = file_get_contents("php://input"); // Get the json data
 
-if(!isValidJSON($json_params)){
+if(!isValidJSON($json_params)){ //check validate of json
 	$response["code"] = 500;
 	$response["message"] = "Invalid call";
 	$response["date"] = date("Y-m-d H:i:s");		
@@ -39,10 +39,9 @@ if(!isValidJSON($json_params)){
 	exit();
 }
 
+$PARAMS = json_decode($json_params, true); //Convert json to array
 
-$PARAMS = json_decode($json_params, true);
-
-if(!isset($PARAMS['inputs'],$PARAMS['outputs'],$PARAMS['replaceable'],$PARAMS['fee'],$PARAMS['wallet'],$PARAMS['pass'])){
+if(!isset($PARAMS['inputs'],$PARAMS['outputs'],$PARAMS['replaceable'],$PARAMS['fee'],$PARAMS['wallet'],$PARAMS['pass'])){//check if call is right
 	$response["code"] = 501;
 	$response["message"] = "Invalid call";
 	$response["date"] = date("Y-m-d H:i:s");		
@@ -50,9 +49,9 @@ if(!isset($PARAMS['inputs'],$PARAMS['outputs'],$PARAMS['replaceable'],$PARAMS['f
 	exit();
 }
 
-$btc = new Bitcoin(USER_BITCOIN, PASS_BITCOIN, SERVER_RPC, PORT_RPC, PATH_WALLET . $PARAMS['wallet']);
+$btc = new Bitcoin(USER_BITCOIN, PASS_BITCOIN, SERVER_RPC, PORT_RPC, PATH_WALLET . $PARAMS['wallet']); //Connect to RPC Wallet
 
-if(!is_null($btc->walletpassphrase($PARAMS['pass'], 120))){
+if(!is_null($btc->walletpassphrase($PARAMS['pass'], 120))){ //Decrypt Wallet
 	
 	$response["code"] = 301;
 	$response["message"] = "Error decoding wallet";
@@ -73,7 +72,7 @@ $addresses = array();
 
 foreach($inputs as $addrs){
 
-	if(($vaddr = $btc->validateaddress($addrs['address'])) === false OR ($vaddr['isvalid'] !== true)){
+	if(($vaddr = $btc->validateaddress($addrs['address'])) === false OR ($vaddr['isvalid'] !== true)){//Check validate of address
 		$response["code"] = 1000;
 		$response["message"] = "Invalid address";
 		$response["date"] = date("Y-m-d H:i:s");		
@@ -81,7 +80,7 @@ foreach($inputs as $addrs){
 		exit();
 	}
 
-	if(($tpriv = $btc->dumpprivkey($addrs['address'])) === false){
+	if(($tpriv = $btc->dumpprivkey($addrs['address'])) === false){//Get the private key
 		$response["code"] = 1001;
 		$response["message"] = "Invalid private key";
 		$response["date"] = date("Y-m-d H:i:s");		
@@ -89,7 +88,7 @@ foreach($inputs as $addrs){
 		exit();
 	}
 
-	if($tpriv !== $addrs['private']){
+	if($tpriv !== $addrs['private']){ //Compare private key to continue
 
 		$response["code"] = 1002;
 		$response["message"] = "Invalid private key";
@@ -104,7 +103,7 @@ foreach($inputs as $addrs){
 }
 	
 	
-	if(($unspends = $btc->listunspent(0, 9999999, $addresses)) === false){
+	if(($unspends = $btc->listunspent(0, 9999999, $addresses)) === false){//Get unspent values of inputs
 		$response["code"] = 1003;
 		$response["message"] = $btc->response['error']['message'];
 		$response["date"] = date("Y-m-d H:i:s");		
@@ -128,7 +127,7 @@ foreach($inputs as $addrs){
 			
 		}
 		
-		foreach($_outputs as $_output){
+		foreach($_outputs as $_output){ //Distribute the amount values in outputs
 			
 			$output[][trim($_output['recipient'])] =  number_format($_output['value'], 8, ".", "");
 			
@@ -137,11 +136,11 @@ foreach($inputs as $addrs){
 		}
 	
 	
-	if($amount > 0){
+	if($amount > 0){ //If rest a change, send to a address in input
 		
 		$iaddr = $addresses[count($addresses) -1];
 		
-		if((array_key_exists($iaddr, $output)) === false){
+		if((array_key_exists($iaddr, $output)) === false){ //If not exist address input in output, add
 			
 			$output[][$iaddr] = $amount;
 			
@@ -149,7 +148,7 @@ foreach($inputs as $addrs){
 			
 			foreach($output as $ind=>$addr){
 				
-				if($addr[0] == $iaddr){
+				if($addr[0] == $iaddr){ //if exist, increase the value
 					$output[$ind][$iaddr] = number_format($output[$ind][$iaddr] + $amount, 8, ".", "");
 				}
 				
@@ -166,7 +165,7 @@ foreach($inputs as $addrs){
 	}
 	
 	
-	if(($rawtransaction = $btc->createrawtransaction($input,$output,0,$replaceable)) === false){
+	if(($rawtransaction = $btc->createrawtransaction($input,$output,0,$replaceable)) === false){//create the raw transaction
 			$response["code"] = 1004;
 			$response["message"] = $btc->response['error']['message'] . " - ". json_encode($output);
 			$response["date"] = date("Y-m-d H:i:s");		
@@ -174,7 +173,7 @@ foreach($inputs as $addrs){
 			exit();
 	}
 	
-	if(($signrawtransaction = $btc->signrawtransactionwithwallet($rawtransaction)) === false){
+	if(($signrawtransaction = $btc->signrawtransactionwithwallet($rawtransaction)) === false){//sign the raw transaction
 			$response["code"] = 1005;
 			$response["message"] = $btc->response['error']['message'];
 			$response["date"] = date("Y-m-d H:i:s");		
@@ -182,7 +181,7 @@ foreach($inputs as $addrs){
 			exit();
 	}
 	
-	if(($return_txid = $btc->sendrawtransaction($signrawtransaction['hex'])) === false){
+	if(($return_txid = $btc->sendrawtransaction($signrawtransaction['hex'])) === false){ //Send the sign transaction to network
 			$response["code"] = 1006;
 			$response["message"] = $btc->response['error']['message'];
 			$response["date"] = date("Y-m-d H:i:s");		
