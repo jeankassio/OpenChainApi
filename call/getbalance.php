@@ -12,9 +12,9 @@ require_once(dirname(__FILE__, 2) . "/conn/easybitcoin.php");
 
 */
 
-$json_params = file_get_contents("php://input");
+$json_params = file_get_contents("php://input"); // Get the json data
 
-if(!isValidJSON($json_params)){
+if(!isValidJSON($json_params)){ //check validate of json
 	$response["code"] = 500;
 	$response["message"] = "Invalid call";
 	$response["date"] = date("Y-m-d H:i:s");		
@@ -22,7 +22,7 @@ if(!isValidJSON($json_params)){
 	exit();
 }
 
-$PARAMS = json_decode($json_params, true);
+$PARAMS = json_decode($json_params, true); //Convert json to array
 
 if(!isset($PARAMS['wallet'],$PARAMS['pass'],$PARAMS['address'])){
 	$response["code"] = 501;
@@ -32,9 +32,9 @@ if(!isset($PARAMS['wallet'],$PARAMS['pass'],$PARAMS['address'])){
 	exit();
 }
 
-$btc = new Bitcoin(USER_BITCOIN, PASS_BITCOIN, SERVER_RPC, PORT_RPC, PATH_WALLET . $PARAMS['wallet']);
+$btc = new Bitcoin(USER_BITCOIN, PASS_BITCOIN, SERVER_RPC, PORT_RPC, PATH_WALLET . $PARAMS['wallet']); //Connect to RPC Wallet
 
-if(!is_null($btc->walletpassphrase($PARAMS['pass'], 30))){
+if(!is_null($btc->walletpassphrase($PARAMS['pass'], 30))){ //Decrypt Wallet
 	
 	$response["code"] = 301;
 	$response["message"] = $btc->response['error']['message'];
@@ -47,7 +47,7 @@ if(!is_null($btc->walletpassphrase($PARAMS['pass'], 30))){
 	$balance = 0;
 	$unconfirmed = 0;
 	
-	if(($unspends = $btc->listunspent(6, 9999999, array($PARAMS['address']))) === false){
+	if(($unspends = $btc->listunspent(6, 9999999, array($PARAMS['address']))) === false){ //Get the unspent values of the address with 6 or more confirmations
 		$response["code"] = 1003;
 		$response["message"] = $btc->response['error']['message'];
 		$response["date"] = date("Y-m-d H:i:s");		
@@ -62,7 +62,7 @@ if(!is_null($btc->walletpassphrase($PARAMS['pass'], 30))){
 	}
 
 	
-	if(($unspends = $btc->listunspent(0, 5, array($PARAMS['address']))) === false){
+	if(($unspends = $btc->listunspent(0, 5, array($PARAMS['address']))) === false){ //Get the unspent values of the address with 5 or less confirmations
 		$response["code"] = 1003;
 		$response["message"] = $btc->response['error']['message'];
 		$response["date"] = date("Y-m-d H:i:s");		
