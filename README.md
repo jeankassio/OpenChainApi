@@ -4,6 +4,8 @@ OpenChain, a PHP Blockchain Bitcoin API
 Connection work with EasyBitcoin.php
 https://github.com/aceat64/EasyBitcoin-PHP
 
+Donation Bitcoin: bc1qeu8eledtdn8s7et3duvp8s5tzk6ch3lkq48a4n
+
 Tutorial Ubuntu:
 
 ** Add repository and install bitcoind ** 
