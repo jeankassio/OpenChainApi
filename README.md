@@ -70,6 +70,10 @@ The api has the endpoints:
 -Withdraw;
 
 	https://your_url/call/setnewtransaction
+
+-Watch Address;
+	
+	https://your_url/call/watchaddress
 	
 
 In addition to having a webhook for withdrawals and deposits.
