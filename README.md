@@ -44,6 +44,21 @@ Tutorial Ubuntu:
 If using an external volume for the blockchain, use the code "datadir=/youdirectory/bitcoin" above
 
 
+And activate the Startup
+
+	touch /etc/rc.local
+ 	chmod +x /etc/rc.local
+	sudo systemctl enable rc-local.service
+	nano /etc/rc.local
+
+now, editing the file, write the code:
+	
+	#!/bin/sh -e
+	#
+	
+	sudo bitcoind
+	exit 0
+
 
 The api has the endpoints:
 
