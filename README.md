@@ -44,7 +44,7 @@ Tutorial Ubuntu:
 If using an external volume for the blockchain, use the code "datadir=/youdirectory/bitcoin" above
 
 
-And activate the Startup
+And activate the Load on Startup
 
 	touch /etc/rc.local
  	chmod +x /etc/rc.local
