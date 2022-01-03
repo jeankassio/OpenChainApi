@@ -46,12 +46,19 @@ If using an external volume for the blockchain, use the code "datadir=/youdirect
 
 And activate the Load on Startup
 
+if ubuntu version >= 18.04
+
+
+
 	touch /etc/rc.local
  	chmod +x /etc/rc.local
 	sudo systemctl enable rc-local.service
+	
+now, open file to edit
+	
 	nano /etc/rc.local
 
-now, editing the file, write the code:
+and write this following code:
 	
 	#!/bin/sh -e
 	#
