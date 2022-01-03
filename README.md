@@ -1,4 +1,4 @@
-# OpenChain
+# OpenChain Api
 OpenChain, a PHP Blockchain Bitcoin Wallet API
 
 Connection work with EasyBitcoin.php
