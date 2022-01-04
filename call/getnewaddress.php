@@ -25,13 +25,19 @@ if(!isValidJSON($json_params)){ //check validate of json
 
 $PARAMS = json_decode($json_params, true); //Convert json to array
 
-if(!isset($PARAMS['conf'],$PARAMS['wallet'],$PARAMS['pass'],$PARAMS['hook'])){ //Check if call is
+if(!isset($PARAMS['wallet'],$PARAMS['pass'])){ //Check if call is
 	$response["code"] = 501;
 	$response["message"] = "Invalid call";
 	$response["date"] = date("Y-m-d H:i:s");		
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
 	exit();
-}elseif(is_int($PARAMS['conf'])){ //Check if confirmation is a number valid
+}
+
+$PARAMS['conf'] = ($PARAMS['conf'] ? intval($PARAMS['conf']) : 3);
+$PARAMS['hook'] = ($PARAMS['hook'] ?? NULL);
+
+
+if(!is_numeric($PARAMS['conf'])){ //Check if confirmation is a number valid
 	$response["code"] = 302;
 	$response["message"] = "Invalid format of number confirmations";
 	$response["date"] = date("Y-m-d H:i:s");		
