@@ -1,6 +1,11 @@
 # OpenChain Api
 OpenChain, a PHP Blockchain Bitcoin Wallet API
 
+<p align="center">
+    <img alt="ViewCount" src="https://views.whatilearened.today/views/github/jeankassio/github-clone-count-badge.svg">
+    <a href="https://github.com/jeankassio/OpenChainApi"><img alt="GitHub Clones" src="https://img.shields.io/badge/dynamic/json?color=success&label=Clone&query=count&url=https://github.com/jeankassio/OpenChainApi/blob/main/clone.json?raw=True&logo=github"></a>
+</p>
+
 Connection work with EasyBitcoin.php
 https://github.com/aceat64/EasyBitcoin-PHP
 
