@@ -140,26 +140,26 @@ foreach($inputs as $addrs){
 			
 		}
 	
+	$amount = number_format($amount, 8, ".", "");
 	
 	if($amount > 0){ //If rest a change, send to a address in input
 		
 		$iaddr = $addresses[count($addresses) -1];
+		$i = true;
 		
-		if((array_key_exists($iaddr, $output)) === false){ //If not exist address input in output, add
+		foreach($output as $ind=>$addr){
 			
-			$output[][$iaddr] = $amount;
-			
-		}else{ 
-			
-			foreach($output as $ind=>$addr){ 
-				
-				if($addr[0] == $iaddr){ //if exist, increase the value
-					$output[$ind][$iaddr] = number_format($output[$ind][$iaddr] + $amount, 8, ".", "");
-				}
-				
+			if(array_key_exists($iaddr, $addr)){ //if exist, increase the value
+				$output[$ind][$iaddr] = number_format($output[$ind][$iaddr] + $amount, 8, ".", "");
+				$i = false;
 			}
 			
 		}
+		
+		if($i){
+			$output[][$iaddr] = $amount;
+		}
+		
 		
 	}
 	
