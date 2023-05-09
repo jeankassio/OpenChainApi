@@ -109,3 +109,6 @@ In addition to having a webhook for withdrawals and deposits.
 Inside all call files has tha explanation how to receive calls.
 
 
+## Copyright and license
+
+Code released under the [MIT license](https://github.com/jeankassio/OpenChainApi/blob/main/LICENSE).
